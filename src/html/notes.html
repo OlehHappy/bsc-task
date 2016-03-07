@@ -1,0 +1,52 @@
+<div class="container">
+    <h2>Note App</h2>
+
+    <form ng-submit="createNote()">
+        <input class="form-control notes__create-input" placeholder="Type a Note ..." ng-model="createNoteInput" />
+        <button class="btn btn-success notes__create-button">Create Note</button>
+    </form>
+
+    <table class="table table-striped">
+        <tr>
+            <th>Notes</th>
+            <th>Actions</th>
+        </tr>
+        <tr ng-repeat="note in notes">
+            <td>
+                <span ng-if="!note.isEditing">
+                    {{note.title}}
+                </span>
+
+                <form ng-submit="updateNote(note)">
+                    <input ng-if="note.isEditing"
+                        class="form-control notes__update-input"
+                        ng-value="note.title"
+                        ng-model="note.updatedNote" />
+                </form>
+            </td>
+            <td>
+                <button ng-if="!note.isEditing"
+                    class="btn btn-info"
+                    ng-click="onEditClick(note)">
+                    Edit
+                </button>
+                <button ng-if="!note.isEditing"
+                    class="btn btn-danger"
+                    ng-click="deleteNote(note)">
+                    Delete
+                </button>
+
+                <button ng-if="note.isEditing"
+                    class="btn btn-primary"
+                    ng-click="updateNote(note)">
+                    Save
+                </button>
+                <button ng-if="note.isEditing"
+                    class="btn btn-default"
+                    ng-click="onCancelClick(note)">
+                    Cancel
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>
